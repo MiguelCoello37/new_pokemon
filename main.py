@@ -245,10 +245,12 @@ class Move:
         self.type = self.r_json["type"]["name"]
         self.priority = self.r_json["priority"]
         self.damage_class = self.r_json["damage_class"]["name"]
-        self.effect_chance = self.r_json["effect_chance"]
         self.target = self.r_json["target"]["name"]
         self.stat_change = self.r_json["stat_changes"]
         self.description = list(filter(lambda x: x["language"]["name"] == "es", self.r_json["flavor_text_entries"]))[0]["flavor_text"]
+        self.effect_chance = self.r_json["effect_chance"]
+        self.effect = " | ".join([effect["effect"] for effect in self.r_json["effect_entries"]])
+
 
     def __str__(self):
         return f"{self.name.capitalize()} es un movimiento de tipo {self.type} con {self.power} de poder y {self.max_pp} PP. Tiene una precisión de {self.accuracy} y una prioridad de {self.priority}. Es de clase {self.damage_class} y su objetivo es {self.target}. Puede cambiar las estadísticas del objetivo con {self.stat_change}. Su probabilidad de efecto es {self.effect_chance}. Descripción: {self.description}"

@@ -1,4 +1,5 @@
 from main import Move
+import pandas as pd
 
 def get_moves():
     moves = []
@@ -9,13 +10,14 @@ def get_moves():
         print(id)
         try:
             move = Move(f"{base_url}{id}")
-            moves.append([move.name, move.power, move.accuracy, move.damage_class, move.description])
+            moves.append([move.name, move.power, move.accuracy, move.damage_class, move.description, move.effect])
         except:
             break
 
-            with open("moves.txt", "w") as f:
-                for move in moves:
-                    f.write(f"{move[0]}\n{move[1]}\n{move[2]}\n{move[3]}\n{move[4]}\n\n")
-
+    print(moves)
+    df = pd.DataFrame(moves, columns=["Name", "Power", "Accuracy", "Damage Class", "Description", "Effect"])
+    print(df)
+    df.to_csv("moves.csv", index=False)
+            
 if __name__ == "__main__":
     get_moves()
